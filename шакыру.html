@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тойға шақыру</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(
+        rgba(0,0,0,0.35),
+        rgba(0,0,0,0.35)
+    ),
+    url("https://images.unsplash.com/photo-1529634899021-41c7e56f9b3c?auto=format&fit=crop&w=1600");
+    background-size: cover;
+    background-position: center;
+    color: #ffe6ea;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.08);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+
+h1 {
+    font-size: 38px;
+    color: #ffd1dc;
+}
+
+.names {
+    font-size: 30px;
+    margin: 20px 0;
+    color: #fff;
+}
+
+.info {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.timer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.timer div {
+    background: rgba(0,0,0,0.4);
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #ffb6c1;
+    color: #000;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #ff8fa3;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.footer {
+    margin-top: 30px;
+    opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Тойға шақыру</h1>
+
+    <p>Құрметті ағайын-туыс, құда-жекжат, дос-жарандар!</p>
+
+    <p>Сіздерді балаларымыздың</p>
+
+    <div class="names">Айбек ❤️ Аружан</div>
+
+    <p>үйлену тойына арналған ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!</p>
+
+    <div class="info">
+        📅 20 шілде 2026 жыл<br>
+        ⏰ 18:00<br>
+        📍 «Алтын Сарай» мейрамханасы, Алматы
+    </div>
+
+    <!-- ⏳ Таймер -->
+    <h2>Тойға дейін қалды</h2>
+    <div class="timer">
+        <div><span id="days">0</span><br>Күн</div>
+        <div><span id="hours">0</span><br>Сағат</div>
+        <div><span id="minutes">0</span><br>Минут</div>
+        <div><span id="seconds">0</span><br>Секунд</div>
+    </div>
+
+    <!-- 🖼 Галерея -->
+    <h2>Естелік сәттер</h2>
+    <div class="gallery">
+        <img src="https://picsum.photos/400/300?1">
+        <img src="https://picsum.photos/400/300?2">
+        <img src="https://picsum.photos/400/300?3">
+    </div>
+
+    <!-- 🎵 Музыка -->
+    <h2>Әуен</h2>
+    <button onclick="toggleMusic()">🎵 Музыканы қосу / тоқтату</button>
+    <audio id="music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 📩 RSVP -->
+    <h2>Қатысуыңызды растаңыз</h2>
+    <form>
+        <input type="text" placeholder="Аты-жөніңіз" required>
+        <select required>
+            <option value="">Қатысу жауабы</option>
+            <option>Келемін</option>
+            <option>Келмеймін</option>
+        </select>
+        <button type="submit">Жіберу</button>
+    </form>
+
+    <div class="footer">
+        Той иелері: <strong>Ерлан – Гүлмира</strong><br>
+        Қуанышымызға ортақ болыңыздар 💐
+    </div>
+</div>
+
+<script>
+/* ⏳ Countdown – 100% жұмыс істейді */
+const weddingDate = new Date(2026, 6, 20, 18, 0, 0).getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+
+    if (diff > 0) {
+        document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+        document.getElementById("hours").innerText = Math.floor((diff / (1000*60*60)) % 24);
+        document.getElementById("minutes").innerText = Math.floor((diff / (1000*60)) % 60);
+        document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+    }
+}, 1000);
+
+/* 🎵 Музыка батырмамен */
+const music = document.getElementById("music");
+let playing = false;
+
+function toggleMusic() {
+    if (!playing) {
+        music.play();
+        playing = true;
+    } else {
+        music.pause();
+        playing = false;
+    }
+}
+</script>
+
+</body>
+</html>
